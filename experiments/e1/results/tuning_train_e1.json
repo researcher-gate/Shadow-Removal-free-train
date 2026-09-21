@@ -1,0 +1,478 @@
+{
+  "split": "train",
+  "n_images": 50,
+  "seed": 0,
+  "stage0_C": 1.5239389183361096,
+  "stage0_estimator": "fc_floorsub_masked",
+  "pass1_grid": {
+    "a_s": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "a_b": [
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "use_prior": [
+      true,
+      false
+    ]
+  },
+  "pass1": [
+    {
+      "cfg": {
+        "a_s": 0.5,
+        "a_b": 0.5,
+        "use_prior": true
+      },
+      "psnr_S": 19.696566821820923,
+      "psnr_NS": 35.59254227716818,
+      "mae_lab_ALL": 1.9849843060970307
+    },
+    {
+      "cfg": {
+        "a_s": 0.5,
+        "a_b": 0.5,
+        "use_prior": false
+      },
+      "psnr_S": 19.040109067823295,
+      "psnr_NS": 35.63007391394403,
+      "mae_lab_ALL": 2.0412644743919373
+    },
+    {
+      "cfg": {
+        "a_s": 0.5,
+        "a_b": 1.0,
+        "use_prior": true
+      },
+      "psnr_S": 19.69632629221263,
+      "psnr_NS": 35.59254227716818,
+      "mae_lab_ALL": 1.9849869120121002
+    },
+    {
+      "cfg": {
+        "a_s": 0.5,
+        "a_b": 1.0,
+        "use_prior": false
+      },
+      "psnr_S": 19.043202556198946,
+      "psnr_NS": 35.62997662676049,
+      "mae_lab_ALL": 2.0412626135349274
+    },
+    {
+      "cfg": {
+        "a_s": 0.5,
+        "a_b": 2.0,
+        "use_prior": true
+      },
+      "psnr_S": 19.696676067292177,
+      "psnr_NS": 35.5925542469806,
+      "mae_lab_ALL": 1.9849814546108246
+    },
+    {
+      "cfg": {
+        "a_s": 0.5,
+        "a_b": 2.0,
+        "use_prior": false
+      },
+      "psnr_S": 19.035544596838797,
+      "psnr_NS": 35.63024529147014,
+      "mae_lab_ALL": 2.041216994524002
+    },
+    {
+      "cfg": {
+        "a_s": 0.5,
+        "a_b": 4.0,
+        "use_prior": true
+      },
+      "psnr_S": 19.65248020247438,
+      "psnr_NS": 35.59451125952369,
+      "mae_lab_ALL": 1.9879372882843018
+    },
+    {
+      "cfg": {
+        "a_s": 0.5,
+        "a_b": 4.0,
+        "use_prior": false
+      },
+      "psnr_S": 18.349327599479437,
+      "psnr_NS": 35.62762273179926,
+      "mae_lab_ALL": 2.0773882055282593
+    },
+    {
+      "cfg": {
+        "a_s": 1.0,
+        "a_b": 0.5,
+        "use_prior": true
+      },
+      "psnr_S": 19.60992901509512,
+      "psnr_NS": 35.58411644698584,
+      "mae_lab_ALL": 1.9908395648002624
+    },
+    {
+      "cfg": {
+        "a_s": 1.0,
+        "a_b": 0.5,
+        "use_prior": false
+      },
+      "psnr_S": 19.46988502160209,
+      "psnr_NS": 35.60176008646683,
+      "mae_lab_ALL": 1.9779052829742432
+    },
+    {
+      "cfg": {
+        "a_s": 1.0,
+        "a_b": 1.0,
+        "use_prior": true
+      },
+      "psnr_S": 19.609706405954395,
+      "psnr_NS": 35.58411644698584,
+      "mae_lab_ALL": 1.990842171907425
+    },
+    {
+      "cfg": {
+        "a_s": 1.0,
+        "a_b": 1.0,
+        "use_prior": false
+      },
+      "psnr_S": 19.472547075661613,
+      "psnr_NS": 35.60166280223726,
+      "mae_lab_ALL": 1.9779034209251405
+    },
+    {
+      "cfg": {
+        "a_s": 1.0,
+        "a_b": 2.0,
+        "use_prior": true
+      },
+      "psnr_S": 19.574004098556394,
+      "psnr_NS": 35.58452408830598,
+      "mae_lab_ALL": 1.9926789426803588
+    },
+    {
+      "cfg": {
+        "a_s": 1.0,
+        "a_b": 2.0,
+        "use_prior": false
+      },
+      "psnr_S": 18.77947244058511,
+      "psnr_NS": 35.596575916246906,
+      "mae_lab_ALL": 2.0154073452949524
+    },
+    {
+      "cfg": {
+        "a_s": 1.0,
+        "a_b": 4.0,
+        "use_prior": true
+      },
+      "psnr_S": 19.57678319674649,
+      "psnr_NS": 35.58473088974314,
+      "mae_lab_ALL": 1.9924235367774963
+    },
+    {
+      "cfg": {
+        "a_s": 1.0,
+        "a_b": 4.0,
+        "use_prior": false
+      },
+      "psnr_S": 18.78973084448274,
+      "psnr_NS": 35.597463344474086,
+      "mae_lab_ALL": 2.0122518014907835
+    },
+    {
+      "cfg": {
+        "a_s": 2.0,
+        "a_b": 0.5,
+        "use_prior": true
+      },
+      "psnr_S": 19.582389787435876,
+      "psnr_NS": 35.58329044110023,
+      "mae_lab_ALL": 1.993700783252716
+    },
+    {
+      "cfg": {
+        "a_s": 2.0,
+        "a_b": 0.5,
+        "use_prior": false
+      },
+      "psnr_S": 19.328892639037736,
+      "psnr_NS": 35.60216105825307,
+      "mae_lab_ALL": 1.9906584775447846
+    },
+    {
+      "cfg": {
+        "a_s": 2.0,
+        "a_b": 1.0,
+        "use_prior": true
+      },
+      "psnr_S": 19.558294173798007,
+      "psnr_NS": 35.583395303621174,
+      "mae_lab_ALL": 1.9939808130264283
+    },
+    {
+      "cfg": {
+        "a_s": 2.0,
+        "a_b": 1.0,
+        "use_prior": false
+      },
+      "psnr_S": 19.10279597342525,
+      "psnr_NS": 35.60386254823659,
+      "mae_lab_ALL": 1.9920980203151704
+    },
+    {
+      "cfg": {
+        "a_s": 2.0,
+        "a_b": 2.0,
+        "use_prior": true
+      },
+      "psnr_S": 19.546573148595414,
+      "psnr_NS": 35.584006688735506,
+      "mae_lab_ALL": 1.9950566935539245
+    },
+    {
+      "cfg": {
+        "a_s": 2.0,
+        "a_b": 2.0,
+        "use_prior": false
+      },
+      "psnr_S": 18.58364936841382,
+      "psnr_NS": 35.59891915194493,
+      "mae_lab_ALL": 2.0262473809719084
+    },
+    {
+      "cfg": {
+        "a_s": 2.0,
+        "a_b": 4.0,
+        "use_prior": true
+      },
+      "psnr_S": 19.54651543108087,
+      "psnr_NS": 35.58388131563352,
+      "mae_lab_ALL": 1.9952060437202455
+    },
+    {
+      "cfg": {
+        "a_s": 2.0,
+        "a_b": 4.0,
+        "use_prior": false
+      },
+      "psnr_S": 18.599680257206643,
+      "psnr_NS": 35.597659238008184,
+      "mae_lab_ALL": 2.0230048644542693
+    }
+  ],
+  "pass1_best": {
+    "cfg": {
+      "a_s": 0.5,
+      "a_b": 2.0,
+      "use_prior": true
+    },
+    "psnr_S": 19.696676067292177,
+    "psnr_NS": 35.5925542469806,
+    "mae_lab_ALL": 1.9849814546108246
+  },
+  "pass2": [
+    {
+      "cfg": {
+        "topk": 2,
+        "gain_smooth_frac": 0.35,
+        "feather_width": 8
+      },
+      "psnr_S": 19.7022111111734,
+      "psnr_NS": 35.36669874646442,
+      "mae_lab_ALL": 1.9842612195014953
+    },
+    {
+      "cfg": {
+        "topk": 2,
+        "gain_smooth_frac": 0.35,
+        "feather_width": 12
+      },
+      "psnr_S": 19.694115853110105,
+      "psnr_NS": 35.593117880324705,
+      "mae_lab_ALL": 1.9852861762046814
+    },
+    {
+      "cfg": {
+        "topk": 2,
+        "gain_smooth_frac": 0.5,
+        "feather_width": 8
+      },
+      "psnr_S": 19.69663020856602,
+      "psnr_NS": 35.36706596183412,
+      "mae_lab_ALL": 1.9847405552864075
+    },
+    {
+      "cfg": {
+        "topk": 2,
+        "gain_smooth_frac": 0.5,
+        "feather_width": 12
+      },
+      "psnr_S": 19.689701136877893,
+      "psnr_NS": 35.592933908611506,
+      "mae_lab_ALL": 1.98572203874588
+    },
+    {
+      "cfg": {
+        "topk": 2,
+        "gain_smooth_frac": 0.8,
+        "feather_width": 8
+      },
+      "psnr_S": 19.67797661131893,
+      "psnr_NS": 35.36718615033594,
+      "mae_lab_ALL": 1.9859427762031556
+    },
+    {
+      "cfg": {
+        "topk": 2,
+        "gain_smooth_frac": 0.8,
+        "feather_width": 12
+      },
+      "psnr_S": 19.672579008481772,
+      "psnr_NS": 35.592168277965435,
+      "mae_lab_ALL": 1.9868905341625214
+    },
+    {
+      "cfg": {
+        "topk": 4,
+        "gain_smooth_frac": 0.35,
+        "feather_width": 8
+      },
+      "psnr_S": 19.712263008160832,
+      "psnr_NS": 35.36707963409764,
+      "mae_lab_ALL": 1.983371787071228
+    },
+    {
+      "cfg": {
+        "topk": 4,
+        "gain_smooth_frac": 0.35,
+        "feather_width": 12
+      },
+      "psnr_S": 19.704429720995538,
+      "psnr_NS": 35.592737111455236,
+      "mae_lab_ALL": 1.9844343519210816
+    },
+    {
+      "cfg": {
+        "topk": 4,
+        "gain_smooth_frac": 0.5,
+        "feather_width": 8
+      },
+      "psnr_S": 19.70349518264444,
+      "psnr_NS": 35.3674489342317,
+      "mae_lab_ALL": 1.9839702177047729
+    },
+    {
+      "cfg": {
+        "topk": 4,
+        "gain_smooth_frac": 0.5,
+        "feather_width": 12
+      },
+      "psnr_S": 19.696676067292177,
+      "psnr_NS": 35.5925542469806,
+      "mae_lab_ALL": 1.9849814546108246
+    },
+    {
+      "cfg": {
+        "topk": 4,
+        "gain_smooth_frac": 0.8,
+        "feather_width": 8
+      },
+      "psnr_S": 19.68167964429458,
+      "psnr_NS": 35.367590657439486,
+      "mae_lab_ALL": 1.9852796137332915
+    },
+    {
+      "cfg": {
+        "topk": 4,
+        "gain_smooth_frac": 0.8,
+        "feather_width": 12
+      },
+      "psnr_S": 19.676550765402407,
+      "psnr_NS": 35.59175995193989,
+      "mae_lab_ALL": 1.9862624299526215
+    },
+    {
+      "cfg": {
+        "topk": 8,
+        "gain_smooth_frac": 0.35,
+        "feather_width": 8
+      },
+      "psnr_S": 19.720195382275826,
+      "psnr_NS": 35.367031089343115,
+      "mae_lab_ALL": 1.9829214358329772
+    },
+    {
+      "cfg": {
+        "topk": 8,
+        "gain_smooth_frac": 0.35,
+        "feather_width": 12
+      },
+      "psnr_S": 19.71221953234336,
+      "psnr_NS": 35.59196281501652,
+      "mae_lab_ALL": 1.98399582862854
+    },
+    {
+      "cfg": {
+        "topk": 8,
+        "gain_smooth_frac": 0.5,
+        "feather_width": 8
+      },
+      "psnr_S": 19.709767782052253,
+      "psnr_NS": 35.36740458861786,
+      "mae_lab_ALL": 1.9835893213748932
+    },
+    {
+      "cfg": {
+        "topk": 8,
+        "gain_smooth_frac": 0.5,
+        "feather_width": 12
+      },
+      "psnr_S": 19.702862316140124,
+      "psnr_NS": 35.59177103659343,
+      "mae_lab_ALL": 1.9846390175819397
+    },
+    {
+      "cfg": {
+        "topk": 8,
+        "gain_smooth_frac": 0.8,
+        "feather_width": 8
+      },
+      "psnr_S": 19.685425061524917,
+      "psnr_NS": 35.367518159131436,
+      "mae_lab_ALL": 1.9850251615047454
+    },
+    {
+      "cfg": {
+        "topk": 8,
+        "gain_smooth_frac": 0.8,
+        "feather_width": 12
+      },
+      "psnr_S": 19.680253249803744,
+      "psnr_NS": 35.59107644207433,
+      "mae_lab_ALL": 1.9860285782814027
+    }
+  ],
+  "pass2_best": {
+    "cfg": {
+      "topk": 8,
+      "gain_smooth_frac": 0.35,
+      "feather_width": 8
+    },
+    "psnr_S": 19.720195382275826,
+    "psnr_NS": 35.367031089343115,
+    "mae_lab_ALL": 1.9829214358329772
+  },
+  "chosen_config": {
+    "a_s": 0.5,
+    "a_b": 2.0,
+    "use_prior": true,
+    "topk": 8,
+    "gain_smooth_frac": 0.35,
+    "feather_width": 8,
+    "C": 1.5239389183361096
+  },
+  "seconds": 1373.1429017999908
+}

@@ -1,0 +1,92 @@
+# Conda environment for the ISTD+ shadow-removal study.
+#
+#   conda env create -f requirements.yaml
+#   conda activate shadow-istdplus
+#
+#   # then, in order:
+#   bash data/download_data.sh              # ~2.6 GB, builds data/ISTD_plus
+#   bash third_party/download_models.sh     # supervised baselines (139 MB)
+#   python baseline/tune.py --n 60          # select baseline knobs on TRAIN
+#   python baseline/run_baseline.py         # evaluate on TEST
+#   python experiments/e1/calibrate.py --n 400
+#   python experiments/e1/tune_e1.py --n 50
+#   python experiments/e1/run_e1.py --stages main ablation trainverify masksens
+#   python experiments/e1/analyze_selfcheck.py
+#
+# TORCH IS CPU-ONLY HERE, deliberately.  Every reported latency is measured on
+# one device so the numbers in a single table are comparable, and the
+# training-free methods are CPU-bound anyway.  It does mean the two supervised
+# baselines are reported far slower than they would deploy -- BMNet ~3.5 s/img
+# and ShadowFormer ~7-18 s/img at 480x640 on 8 cores.  To measure them on a GPU
+# instead, swap the pytorch lines for the CUDA build:
+#
+#   - pytorch::pytorch=2.*
+#   - pytorch::pytorch-cuda=12.4
+#   - pytorch::torchvision
+#
+# and set device="cuda" in baseline/{bmnet,shadowformer}_wrapper.py.  Report
+# CPU and GPU latency in separate columns if you do -- mixing them in one
+# column is the most common way these tables mislead.
+#
+# Versions are pinned to minors that were actually exercised.  The one to watch
+# is numpy 2.x: the two third-party repos target the numpy 1.x / torch 1.7 era,
+# and they work here only because the wrappers bypass their data pipelines and
+# drive the networks directly.
+
+name: shadow-istdplus
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.12
+
+  # --- numerics / imaging -------------------------------------------------
+  - numpy>=2.0,<3
+  - scipy>=1.14           # scipy.fft (DCT Poisson solve, batched FFT matching)
+  - scikit-image>=0.24    # SSIM, rgb2lab (L in [0,100] -- the MATLAB
+                          # convention the shadow literature reports in)
+  - opencv>=4.10          # cv2: morphology, SLIC support, resize, blur
+  - pillow>=10
+  - matplotlib>=3.8       # gating 8.2 / 8.3 figures only
+
+  # --- deep learning ------------------------------------------------------
+  # CPU build on purpose; see the note at the top of this file.
+  - pytorch>=2.2          # LPIPS backbone + the two supervised baselines
+  - torchvision>=0.17
+  - cpuonly
+
+  # --- fetching -----------------------------------------------------------
+  - git                   # download_models.sh clones two repos
+
+  - pip
+  - pip:
+      # perceptual metric (AlexNet backbone, downloaded on first use ~233 MB)
+      - lpips==0.1.4
+
+      # dataset + weight retrieval
+      - gdown>=5.1              # Google Drive: adjusted ISTD, ShadowFormer
+      - huggingface_hub>=0.23   # HF mirror of original ISTD
+
+      # required by third_party/ShadowFormer/model.py
+      - einops>=0.7
+      - timm>=0.9               # only timm.models.layers.{to_2tuple,trunc_normal_}
+      - natsort>=8              # imported by ShadowFormer/utils/dir_utils.py
+
+# NOT required, despite appearing in the upstream requirements files:
+#   yacs, joblib, h5py, tqdm, linformer, ptflops, scikit-learn, tensorboard
+#   -- all of those are pulled in by the third-party training/eval scripts,
+#   which the wrappers deliberately do not use.
+#
+# PIP-ONLY ALTERNATIVE (no conda):
+#   python -m pip install "numpy>=2,<3" "scipy>=1.14" "scikit-image>=0.24" \
+#       "opencv-python>=4.10" "pillow>=10" "matplotlib>=3.8" \
+#       "lpips==0.1.4" "gdown>=5.1" "huggingface_hub>=0.23" \
+#       "einops>=0.7" "timm>=0.9" "natsort>=8"
+#   python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+#
+# VERIFIED ON
+#   Windows 11, Python 3.12.5, 8 physical cores / 12 logical
+#   numpy 2.4.6 · scipy 1.17.1 · opencv 5.0.0 · scikit-image 0.26.0
+#   torch 2.14.0+cpu · torchvision 0.29.0+cpu · lpips 0.1.4
+#   einops 0.8.2 · timm 1.0.29 · natsort 8.4.0

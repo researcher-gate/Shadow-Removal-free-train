@@ -1,0 +1,1314 @@
+{
+  "split": "train",
+  "n_images": 60,
+  "seed": 0,
+  "criterion": "max mean PSNR_S, reject configs that lose >0.3 dB PSNR_NS relative to the untouched input",
+  "families": {
+    "global_gain": {
+      "grid": {
+        "linear": [
+          false,
+          true
+        ],
+        "robust": [
+          false,
+          true
+        ]
+      },
+      "rows": [
+        {
+          "cfg": {
+            "linear": false,
+            "robust": false
+          },
+          "psnr_S": 19.97891232123063,
+          "psnr_NS": 35.18471455302043,
+          "mae_lab_ALL": 1.7981037974357605,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "robust": true
+          },
+          "psnr_S": 19.74198805486396,
+          "psnr_NS": 35.100792413310415,
+          "mae_lab_ALL": 1.887430084745089,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "robust": false
+          },
+          "psnr_S": 20.232535213275398,
+          "psnr_NS": 35.277507490104334,
+          "mae_lab_ALL": 1.8501201490561168,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "robust": true
+          },
+          "psnr_S": 19.988830528735203,
+          "psnr_NS": 35.18490687948532,
+          "mae_lab_ALL": 2.0092954277992248,
+          "admissible": true
+        }
+      ],
+      "best": {
+        "cfg": {
+          "linear": true,
+          "robust": false
+        },
+        "psnr_S": 20.232535213275398,
+        "psnr_NS": 35.277507490104334,
+        "mae_lab_ALL": 1.8501201490561168,
+        "admissible": true
+      },
+      "seconds": 111.67467400000896
+    },
+    "boundary_gain": {
+      "grid": {
+        "linear": [
+          false,
+          true
+        ],
+        "band": [
+          6,
+          10,
+          16,
+          24
+        ],
+        "gap": [
+          2,
+          4,
+          8
+        ],
+        "f_width": [
+          8,
+          12,
+          20
+        ]
+      },
+      "rows": [
+        {
+          "cfg": {
+            "linear": false,
+            "band": 6,
+            "gap": 2,
+            "f_width": 8
+          },
+          "psnr_S": 19.7922763834843,
+          "psnr_NS": 35.067440855187904,
+          "mae_lab_ALL": 1.7704241216182708,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 6,
+            "gap": 2,
+            "f_width": 12
+          },
+          "psnr_S": 19.760308938339836,
+          "psnr_NS": 35.21797285464142,
+          "mae_lab_ALL": 1.775724110007286,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 6,
+            "gap": 2,
+            "f_width": 20
+          },
+          "psnr_S": 19.513792400268315,
+          "psnr_NS": 33.33689633002653,
+          "mae_lab_ALL": 1.8544951111078263,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 6,
+            "gap": 4,
+            "f_width": 8
+          },
+          "psnr_S": 20.280286096969068,
+          "psnr_NS": 35.075228474662886,
+          "mae_lab_ALL": 1.7030059506495794,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 6,
+            "gap": 4,
+            "f_width": 12
+          },
+          "psnr_S": 20.26608362948787,
+          "psnr_NS": 35.14748104171125,
+          "mae_lab_ALL": 1.7091862420241037,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 6,
+            "gap": 4,
+            "f_width": 20
+          },
+          "psnr_S": 20.029748688936866,
+          "psnr_NS": 33.03205827832527,
+          "mae_lab_ALL": 1.7940622955560683,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 6,
+            "gap": 8,
+            "f_width": 8
+          },
+          "psnr_S": 20.42785986932074,
+          "psnr_NS": 35.07209883772349,
+          "mae_lab_ALL": 1.6778652936220169,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 6,
+            "gap": 8,
+            "f_width": 12
+          },
+          "psnr_S": 20.430824074968072,
+          "psnr_NS": 35.11221374328905,
+          "mae_lab_ALL": 1.6840813169876734,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 6,
+            "gap": 8,
+            "f_width": 20
+          },
+          "psnr_S": 20.20887087313118,
+          "psnr_NS": 32.930058293698316,
+          "mae_lab_ALL": 1.7709670861562092,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 10,
+            "gap": 2,
+            "f_width": 8
+          },
+          "psnr_S": 20.152798846238007,
+          "psnr_NS": 35.07370835739903,
+          "mae_lab_ALL": 1.7172959834337234,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 10,
+            "gap": 2,
+            "f_width": 12
+          },
+          "psnr_S": 20.12834975436995,
+          "psnr_NS": 35.189591628370614,
+          "mae_lab_ALL": 1.7231592734654744,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 10,
+            "gap": 2,
+            "f_width": 20
+          },
+          "psnr_S": 19.87966680724222,
+          "psnr_NS": 33.197183195811824,
+          "mae_lab_ALL": 1.8056573708852133,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 10,
+            "gap": 4,
+            "f_width": 8
+          },
+          "psnr_S": 20.38763119072821,
+          "psnr_NS": 35.07412725823651,
+          "mae_lab_ALL": 1.6834959407647452,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 10,
+            "gap": 4,
+            "f_width": 12
+          },
+          "psnr_S": 20.378621427493727,
+          "psnr_NS": 35.13345890283246,
+          "mae_lab_ALL": 1.6897001296281815,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 10,
+            "gap": 4,
+            "f_width": 20
+          },
+          "psnr_S": 20.143654683174287,
+          "psnr_NS": 32.993811758677616,
+          "mae_lab_ALL": 1.7754313041766485,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 10,
+            "gap": 8,
+            "f_width": 8
+          },
+          "psnr_S": 20.44416819340408,
+          "psnr_NS": 35.072070979544954,
+          "mae_lab_ALL": 1.6725941121578216,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 10,
+            "gap": 8,
+            "f_width": 12
+          },
+          "psnr_S": 20.452670583745753,
+          "psnr_NS": 35.11135507246273,
+          "mae_lab_ALL": 1.678555852174759,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 10,
+            "gap": 8,
+            "f_width": 20
+          },
+          "psnr_S": 20.237711332131212,
+          "psnr_NS": 32.92909026516099,
+          "mae_lab_ALL": 1.7654590477546057,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 16,
+            "gap": 2,
+            "f_width": 8
+          },
+          "psnr_S": 20.383333225046176,
+          "psnr_NS": 35.07719125596699,
+          "mae_lab_ALL": 1.6771976123253505,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 16,
+            "gap": 2,
+            "f_width": 12
+          },
+          "psnr_S": 20.365877878420996,
+          "psnr_NS": 35.17438335648263,
+          "mae_lab_ALL": 1.6828729122877122,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 16,
+            "gap": 2,
+            "f_width": 20
+          },
+          "psnr_S": 20.11908059685652,
+          "psnr_NS": 33.1178645006003,
+          "mae_lab_ALL": 1.7665132502714793,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 16,
+            "gap": 4,
+            "f_width": 8
+          },
+          "psnr_S": 20.490488824688896,
+          "psnr_NS": 35.07392313211059,
+          "mae_lab_ALL": 1.6696028421322504,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 16,
+            "gap": 4,
+            "f_width": 12
+          },
+          "psnr_S": 20.488175893498532,
+          "psnr_NS": 35.12814052193245,
+          "mae_lab_ALL": 1.6755119611819584,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 16,
+            "gap": 4,
+            "f_width": 20
+          },
+          "psnr_S": 20.257656434848943,
+          "psnr_NS": 32.977018173317525,
+          "mae_lab_ALL": 1.761452767252922,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 16,
+            "gap": 8,
+            "f_width": 8
+          },
+          "psnr_S": 20.516620572263307,
+          "psnr_NS": 35.07090899506618,
+          "mae_lab_ALL": 1.6693642685810726,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 16,
+            "gap": 8,
+            "f_width": 12
+          },
+          "psnr_S": 20.528771175505323,
+          "psnr_NS": 35.10474877996575,
+          "mae_lab_ALL": 1.6750872919956843,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 16,
+            "gap": 8,
+            "f_width": 20
+          },
+          "psnr_S": 20.31911291241266,
+          "psnr_NS": 32.91960805485872,
+          "mae_lab_ALL": 1.7616805404424667,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 24,
+            "gap": 2,
+            "f_width": 8
+          },
+          "psnr_S": 20.525099373986155,
+          "psnr_NS": 35.07647222126035,
+          "mae_lab_ALL": 1.6633358468612036,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 24,
+            "gap": 2,
+            "f_width": 12
+          },
+          "psnr_S": 20.51733398142381,
+          "psnr_NS": 35.15559510018003,
+          "mae_lab_ALL": 1.6689577241738638,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 24,
+            "gap": 2,
+            "f_width": 20
+          },
+          "psnr_S": 20.279566978135065,
+          "psnr_NS": 33.06456984074114,
+          "mae_lab_ALL": 1.753352498014768,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 24,
+            "gap": 4,
+            "f_width": 8
+          },
+          "psnr_S": 20.551175313340174,
+          "psnr_NS": 35.07397295285835,
+          "mae_lab_ALL": 1.6587337344884872,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 24,
+            "gap": 4,
+            "f_width": 12
+          },
+          "psnr_S": 20.55466941183478,
+          "psnr_NS": 35.12398264407461,
+          "mae_lab_ALL": 1.6643181999524435,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 24,
+            "gap": 4,
+            "f_width": 20
+          },
+          "psnr_S": 20.33213057788184,
+          "psnr_NS": 32.96741617754959,
+          "mae_lab_ALL": 1.7499496976534525,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 24,
+            "gap": 8,
+            "f_width": 8
+          },
+          "psnr_S": 20.49439015223529,
+          "psnr_NS": 35.071088788962406,
+          "mae_lab_ALL": 1.665959045290947,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 24,
+            "gap": 8,
+            "f_width": 12
+          },
+          "psnr_S": 20.508946123662856,
+          "psnr_NS": 35.107077912222664,
+          "mae_lab_ALL": 1.6714985956748327,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "band": 24,
+            "gap": 8,
+            "f_width": 20
+          },
+          "psnr_S": 20.305218476511534,
+          "psnr_NS": 32.93069849885833,
+          "mae_lab_ALL": 1.7573070178429286,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 6,
+            "gap": 2,
+            "f_width": 8
+          },
+          "psnr_S": 19.887409400130228,
+          "psnr_NS": 35.13875855550079,
+          "mae_lab_ALL": 1.8863730410734811,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 6,
+            "gap": 2,
+            "f_width": 12
+          },
+          "psnr_S": 19.850604250652495,
+          "psnr_NS": 35.25430031388983,
+          "mae_lab_ALL": 1.8923373103141785,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 6,
+            "gap": 2,
+            "f_width": 20
+          },
+          "psnr_S": 19.606944504850592,
+          "psnr_NS": 32.93775813091554,
+          "mae_lab_ALL": 1.9753370473782221,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 6,
+            "gap": 4,
+            "f_width": 8
+          },
+          "psnr_S": 20.350569232413466,
+          "psnr_NS": 35.1346971346345,
+          "mae_lab_ALL": 1.8491263816754022,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 6,
+            "gap": 4,
+            "f_width": 12
+          },
+          "psnr_S": 20.320427239533693,
+          "psnr_NS": 35.19308988490033,
+          "mae_lab_ALL": 1.8560581833124161,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 6,
+            "gap": 4,
+            "f_width": 20
+          },
+          "psnr_S": 20.076034093726218,
+          "psnr_NS": 32.7131941526339,
+          "mae_lab_ALL": 1.9427583495775858,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 6,
+            "gap": 8,
+            "f_width": 8
+          },
+          "psnr_S": 20.520715101453348,
+          "psnr_NS": 35.12722202366261,
+          "mae_lab_ALL": 1.8327612549066543,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 6,
+            "gap": 8,
+            "f_width": 12
+          },
+          "psnr_S": 20.502837299867767,
+          "psnr_NS": 35.17768194398795,
+          "mae_lab_ALL": 1.8394054502248764,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 6,
+            "gap": 8,
+            "f_width": 20
+          },
+          "psnr_S": 20.267061409215163,
+          "psnr_NS": 32.653808986820586,
+          "mae_lab_ALL": 1.926436828573545,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 10,
+            "gap": 2,
+            "f_width": 8
+          },
+          "psnr_S": 20.217653891581392,
+          "psnr_NS": 35.14259422230726,
+          "mae_lab_ALL": 1.8496231238047283,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 10,
+            "gap": 2,
+            "f_width": 12
+          },
+          "psnr_S": 20.184367144912265,
+          "psnr_NS": 35.23998829301263,
+          "mae_lab_ALL": 1.855816595753034,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 10,
+            "gap": 2,
+            "f_width": 20
+          },
+          "psnr_S": 19.93647909922075,
+          "psnr_NS": 32.83931264925444,
+          "mae_lab_ALL": 1.9404971102873485,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 10,
+            "gap": 4,
+            "f_width": 8
+          },
+          "psnr_S": 20.467587167110498,
+          "psnr_NS": 35.13415584408574,
+          "mae_lab_ALL": 1.8335135728120804,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 10,
+            "gap": 4,
+            "f_width": 12
+          },
+          "psnr_S": 20.440831536507364,
+          "psnr_NS": 35.192736347009955,
+          "mae_lab_ALL": 1.8403423537810644,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 10,
+            "gap": 4,
+            "f_width": 20
+          },
+          "psnr_S": 20.19597199952424,
+          "psnr_NS": 32.69522146680257,
+          "mae_lab_ALL": 1.9272717595100404,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 10,
+            "gap": 8,
+            "f_width": 8
+          },
+          "psnr_S": 20.525636895872694,
+          "psnr_NS": 35.12811678793456,
+          "mae_lab_ALL": 1.8302180131276449,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 10,
+            "gap": 8,
+            "f_width": 12
+          },
+          "psnr_S": 20.512624329073482,
+          "psnr_NS": 35.18235130005183,
+          "mae_lab_ALL": 1.8364394376675288,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 10,
+            "gap": 8,
+            "f_width": 20
+          },
+          "psnr_S": 20.283710570888754,
+          "psnr_NS": 32.66132679846544,
+          "mae_lab_ALL": 1.9228802382946015,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 16,
+            "gap": 2,
+            "f_width": 8
+          },
+          "psnr_S": 20.44310490364262,
+          "psnr_NS": 35.142964654044135,
+          "mae_lab_ALL": 1.82660915851593,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 16,
+            "gap": 2,
+            "f_width": 12
+          },
+          "psnr_S": 20.41429982515354,
+          "psnr_NS": 35.22775354676803,
+          "mae_lab_ALL": 1.8328925281763078,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 16,
+            "gap": 2,
+            "f_width": 20
+          },
+          "psnr_S": 20.165777920475424,
+          "psnr_NS": 32.77411364035641,
+          "mae_lab_ALL": 1.9189523756504059,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 16,
+            "gap": 4,
+            "f_width": 8
+          },
+          "psnr_S": 20.553292371298383,
+          "psnr_NS": 35.13350449562395,
+          "mae_lab_ALL": 1.8243122776349385,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 16,
+            "gap": 4,
+            "f_width": 12
+          },
+          "psnr_S": 20.532600448063086,
+          "psnr_NS": 35.19110872804975,
+          "mae_lab_ALL": 1.8307833075523376,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 16,
+            "gap": 4,
+            "f_width": 20
+          },
+          "psnr_S": 20.292787875046677,
+          "psnr_NS": 32.68295894729267,
+          "mae_lab_ALL": 1.9176156848669053,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 16,
+            "gap": 8,
+            "f_width": 8
+          },
+          "psnr_S": 20.57886069304613,
+          "psnr_NS": 35.12756937073217,
+          "mae_lab_ALL": 1.833609902858734,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 16,
+            "gap": 8,
+            "f_width": 12
+          },
+          "psnr_S": 20.568876669329818,
+          "psnr_NS": 35.179288356518,
+          "mae_lab_ALL": 1.8398486564556757,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 16,
+            "gap": 8,
+            "f_width": 20
+          },
+          "psnr_S": 20.34468379848779,
+          "psnr_NS": 32.64759498903093,
+          "mae_lab_ALL": 1.9267336666584014,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 24,
+            "gap": 2,
+            "f_width": 8
+          },
+          "psnr_S": 20.562788698312417,
+          "psnr_NS": 35.140475233320785,
+          "mae_lab_ALL": 1.81431758304437,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 24,
+            "gap": 2,
+            "f_width": 12
+          },
+          "psnr_S": 20.54117182247479,
+          "psnr_NS": 35.21831241439637,
+          "mae_lab_ALL": 1.820346255103747,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 24,
+            "gap": 2,
+            "f_width": 20
+          },
+          "psnr_S": 20.29993587259622,
+          "psnr_NS": 32.7388538619828,
+          "mae_lab_ALL": 1.906555426120758,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 24,
+            "gap": 4,
+            "f_width": 8
+          },
+          "psnr_S": 20.597653822249004,
+          "psnr_NS": 35.132647614275974,
+          "mae_lab_ALL": 1.8225369989871978,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 24,
+            "gap": 4,
+            "f_width": 12
+          },
+          "psnr_S": 20.582121078151534,
+          "psnr_NS": 35.19177970124429,
+          "mae_lab_ALL": 1.8285791079203289,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 24,
+            "gap": 4,
+            "f_width": 20
+          },
+          "psnr_S": 20.350071663229112,
+          "psnr_NS": 32.6765572155393,
+          "mae_lab_ALL": 1.914992269873619,
+          "admissible": false
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 24,
+            "gap": 8,
+            "f_width": 8
+          },
+          "psnr_S": 20.555844613855346,
+          "psnr_NS": 35.127316751947,
+          "mae_lab_ALL": 1.8329984297355015,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 24,
+            "gap": 8,
+            "f_width": 12
+          },
+          "psnr_S": 20.548120591646974,
+          "psnr_NS": 35.18404265002538,
+          "mae_lab_ALL": 1.8389442612727482,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "band": 24,
+            "gap": 8,
+            "f_width": 20
+          },
+          "psnr_S": 20.32971671594951,
+          "psnr_NS": 32.657807356813755,
+          "mae_lab_ALL": 1.925053858757019,
+          "admissible": false
+        }
+      ],
+      "best": {
+        "cfg": {
+          "linear": true,
+          "band": 24,
+          "gap": 4,
+          "f_width": 8
+        },
+        "psnr_S": 20.597653822249004,
+        "psnr_NS": 35.132647614275974,
+        "mae_lab_ALL": 1.8225369989871978,
+        "admissible": true
+      },
+      "seconds": 2058.270213299955
+    },
+    "guo_paired_regions": {
+      "grid": {
+        "linear": [
+          false,
+          true
+        ],
+        "n_segments": [
+          120,
+          220,
+          400
+        ],
+        "topk": [
+          1,
+          3,
+          5
+        ]
+      },
+      "rows": [
+        {
+          "cfg": {
+            "linear": false,
+            "n_segments": 120,
+            "topk": 1
+          },
+          "psnr_S": 18.196992081130755,
+          "psnr_NS": 34.999746642838005,
+          "mae_lab_ALL": 1.8710602978865305,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "n_segments": 120,
+            "topk": 3
+          },
+          "psnr_S": 18.319219859324278,
+          "psnr_NS": 35.01608423738737,
+          "mae_lab_ALL": 1.8742507447799046,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "n_segments": 120,
+            "topk": 5
+          },
+          "psnr_S": 18.32430036022861,
+          "psnr_NS": 35.016697316433856,
+          "mae_lab_ALL": 1.889113930861155,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "n_segments": 220,
+            "topk": 1
+          },
+          "psnr_S": 19.000824326666173,
+          "psnr_NS": 35.07682097871795,
+          "mae_lab_ALL": 1.7893442193667093,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "n_segments": 220,
+            "topk": 3
+          },
+          "psnr_S": 19.28515328782348,
+          "psnr_NS": 35.09911647508582,
+          "mae_lab_ALL": 1.7582164357105892,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "n_segments": 220,
+            "topk": 5
+          },
+          "psnr_S": 19.304294294707947,
+          "psnr_NS": 35.105719089348476,
+          "mae_lab_ALL": 1.7697419027487438,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "n_segments": 400,
+            "topk": 1
+          },
+          "psnr_S": 19.61277931573636,
+          "psnr_NS": 35.16179641252844,
+          "mae_lab_ALL": 1.7385985205570857,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "n_segments": 400,
+            "topk": 3
+          },
+          "psnr_S": 19.968557021882095,
+          "psnr_NS": 35.17443052975609,
+          "mae_lab_ALL": 1.7133391271034877,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "n_segments": 400,
+            "topk": 5
+          },
+          "psnr_S": 20.016107641371853,
+          "psnr_NS": 35.17491032379121,
+          "mae_lab_ALL": 1.7107355882724127,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "n_segments": 120,
+            "topk": 1
+          },
+          "psnr_S": 17.822556324592764,
+          "psnr_NS": 35.037783295189335,
+          "mae_lab_ALL": 2.0576958268880845,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "n_segments": 120,
+            "topk": 3
+          },
+          "psnr_S": 17.937913231454317,
+          "psnr_NS": 35.043649410230046,
+          "mae_lab_ALL": 2.050334570805232,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "n_segments": 120,
+            "topk": 5
+          },
+          "psnr_S": 17.966845758219552,
+          "psnr_NS": 35.040480458277216,
+          "mae_lab_ALL": 2.0485193858544033,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "n_segments": 220,
+            "topk": 1
+          },
+          "psnr_S": 18.594467932414027,
+          "psnr_NS": 35.137180709530234,
+          "mae_lab_ALL": 1.961353020866712,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "n_segments": 220,
+            "topk": 3
+          },
+          "psnr_S": 18.935523873288844,
+          "psnr_NS": 35.14920424116035,
+          "mae_lab_ALL": 1.9401090721289316,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "n_segments": 220,
+            "topk": 5
+          },
+          "psnr_S": 18.97073890709306,
+          "psnr_NS": 35.143650226115405,
+          "mae_lab_ALL": 1.940675441424052,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "n_segments": 400,
+            "topk": 1
+          },
+          "psnr_S": 19.36906965040206,
+          "psnr_NS": 35.22214939147376,
+          "mae_lab_ALL": 1.934295842051506,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "n_segments": 400,
+            "topk": 3
+          },
+          "psnr_S": 19.627299284717026,
+          "psnr_NS": 35.24152006730893,
+          "mae_lab_ALL": 1.9049541115760804,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "n_segments": 400,
+            "topk": 5
+          },
+          "psnr_S": 19.732641359186385,
+          "psnr_NS": 35.24693551794312,
+          "mae_lab_ALL": 1.8880885342756908,
+          "admissible": true
+        }
+      ],
+      "best": {
+        "cfg": {
+          "linear": false,
+          "n_segments": 400,
+          "topk": 5
+        },
+        "psnr_S": 20.016107641371853,
+        "psnr_NS": 35.17491032379121,
+        "mae_lab_ALL": 1.7107355882724127,
+        "admissible": true
+      },
+      "seconds": 1841.3656645999872
+    },
+    "gradient_domain": {
+      "grid": {
+        "linear": [
+          false,
+          true
+        ],
+        "edge_width": [
+          3,
+          5,
+          7,
+          11
+        ]
+      },
+      "rows": [
+        {
+          "cfg": {
+            "linear": false,
+            "edge_width": 3
+          },
+          "psnr_S": 17.88463799254992,
+          "psnr_NS": 34.7608110577286,
+          "mae_lab_ALL": 2.088811182975769,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "edge_width": 5
+          },
+          "psnr_S": 19.811247560428196,
+          "psnr_NS": 34.81344604541301,
+          "mae_lab_ALL": 1.778014102578163,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "edge_width": 7
+          },
+          "psnr_S": 20.102915672300995,
+          "psnr_NS": 34.815744955123,
+          "mae_lab_ALL": 1.7221849093834558,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": false,
+            "edge_width": 11
+          },
+          "psnr_S": 20.09288857132914,
+          "psnr_NS": 34.81924046141128,
+          "mae_lab_ALL": 1.7133668651183447,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "edge_width": 3
+          },
+          "psnr_S": 18.079031790315433,
+          "psnr_NS": 34.8325745471619,
+          "mae_lab_ALL": 2.1290998816490174,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "edge_width": 5
+          },
+          "psnr_S": 19.76361237623156,
+          "psnr_NS": 34.893976451353005,
+          "mae_lab_ALL": 1.919214607278506,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "edge_width": 7
+          },
+          "psnr_S": 20.023453937632492,
+          "psnr_NS": 34.89782551340792,
+          "mae_lab_ALL": 1.8784727017084757,
+          "admissible": true
+        },
+        {
+          "cfg": {
+            "linear": true,
+            "edge_width": 11
+          },
+          "psnr_S": 20.013427748953074,
+          "psnr_NS": 34.901213903835206,
+          "mae_lab_ALL": 1.8775028179089228,
+          "admissible": true
+        }
+      ],
+      "best": {
+        "cfg": {
+          "linear": false,
+          "edge_width": 7
+        },
+        "psnr_S": 20.102915672300995,
+        "psnr_NS": 34.815744955123,
+        "mae_lab_ALL": 1.7221849093834558,
+        "admissible": true
+      },
+      "seconds": 92.65869739995105
+    }
+  },
+  "input_psnr_NS": 34.39692988452688
+}
