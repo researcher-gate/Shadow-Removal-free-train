@@ -71,6 +71,75 @@ def tuned_registry():
     return reg, cfgs
 
 
+def describe():
+    """Print every method the runner can execute, and whether it is ready.
+
+    Kinds:
+      training-free  weightless, mask-guided -- e1's actual peer group
+      supervised     pretrained by the original authors on ISTD+ (AISTD)
+      oracle         uses the ground-truth shadow-free image; a ceiling, not a
+                     baseline, and never quotable as a result
+    """
+    tuned_path = os.path.join(RES, "tuning_train.json")
+    tuned = json.load(open(tuned_path, encoding="utf-8")) if os.path.exists(tuned_path) else None
+
+    # measured on ISTD+ test, 480x640, 8 CPU cores; used only for the estimate
+    MS = {"input": 0.3, "global_gain": 111, "gradient_domain": 207,
+          "guo_paired_regions": 2643, "boundary_gain": 154,
+          "oracle_region_gain_linear": 190, "oracle_smooth_gain_linear": 152,
+          "bmnet_supervised": 3450, "shadowformer_supervised": 10000}
+    OVERHEAD_MS = 350          # per image: disk I/O + metrics at both resolutions
+
+    rows = []
+    for fam in REGISTRY if tuned is None else ["input"] + list(tuned["families"]):
+        if tuned is None and fam != "input":
+            cfg, ready, why = None, False, "run baseline/tune.py first"
+        elif fam == "input":
+            cfg, ready, why = None, True, ""
+        else:
+            cfg, ready, why = tuned["families"][fam]["best"]["cfg"], True, ""
+        rows.append((fam, "training-free", cfg, ready, why))
+
+    for name, mod, pretty in (
+            ("bmnet_supervised", "baseline.bmnet_wrapper", "BMNet (CVPR22)"),
+            ("shadowformer_supervised", "baseline.shadowformer_wrapper",
+             "ShadowFormer (AAAI23)")):
+        try:
+            m = __import__(mod, fromlist=["meta"]).meta()
+            ready, why = True, f"{pretty}, {m['n_parameters']:,} params"
+        except Exception as e:
+            ready = False
+            why = (f"{pretty}: run third_party/download_models.sh"
+                   if isinstance(e, FileNotFoundError) else
+                   f"{pretty}: {type(e).__name__}: {e}")
+        rows.append((name, "supervised", None, ready, why))
+
+    for name in ORACLES:
+        rows.append((name, "oracle", None, True, "uses ground truth -- a ceiling"))
+
+    print("Methods available to baseline/run_baseline.py   (split=test, 540 images)\n")
+    print(f"  {'name':26s} {'kind':14s} {'ready':6s} {'est. run':>9s}  notes")
+    print(f"  {'-'*26} {'-'*14} {'-'*6} {'-'*9}  {'-'*40}")
+    total = 0.0
+    for name, kind, cfg, ready, why in rows:
+        est = (MS.get(name, 500) + OVERHEAD_MS) * 540 / 1000.0
+        if ready:
+            total += est
+        est_s = f"{est/60:.0f} min" if est < 3600 else f"{est/3600:.1f} h"
+        note = why or (str(cfg) if cfg else "")
+        print(f"  {name:26s} {kind:14s} {'yes' if ready else 'NO':6s} {est_s:>9s}  {note}")
+    print(f"\n  everything ready, end to end: ~{total/3600:.1f} h "
+          f"(~{(total - (MS['shadowformer_supervised']+OVERHEAD_MS)*540/1000)/3600:.1f} h "
+          f"without ShadowFormer)")
+    print("\nExamples:")
+    print("  python baseline/run_baseline.py                          # training-free + oracles")
+    print("  python baseline/run_baseline.py --no-oracles             # training-free only")
+    print("  python baseline/run_baseline.py --only boundary_gain     # one method")
+    print("  python baseline/run_baseline.py --supervised bmnet       # add BMNet")
+    print("  python baseline/run_baseline.py --limit 20 --tag _smoke  # quick check")
+    print("  python baseline/run_baseline.py --no-lpips               # offline, no cached backbone")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=None)
@@ -84,7 +153,19 @@ def main():
     ap.add_argument("--save-images", nargs="*", default=["boundary_gain"],
                     help="methods whose outputs are written to disk")
     ap.add_argument("--tag", default="")
+    ap.add_argument("--no-lpips", action="store_true",
+                    help="skip LPIPS. It is the only metric that needs a network "
+                         "on first use (torchvision fetches the AlexNet backbone, "
+                         "~244 MB, into ~/.cache/torch). Once cached the run is "
+                         "fully offline; use this on a machine where it is not.")
+    ap.add_argument("--list", action="store_true",
+                    help="list every runnable method with its readiness and "
+                         "estimated runtime, then exit")
     args = ap.parse_args()
+
+    if args.list:
+        describe()
+        return
 
     reg, cfgs = tuned_registry()
     sup_reg, sup_meta = supervised_registry(args.supervised)
@@ -102,6 +183,7 @@ def main():
         r = run_method(name, fn, split=args.split,
                        out_json=os.path.join(RES, f"{name}{args.tag}.json"),
                        save_dir=save, limit=args.limit,
+                       with_lpips=not args.no_lpips,
                        extra_meta=({"supervised": True,
                                     "trained_by": "original authors, ISTD+ "
                                                   "(AISTD) checkpoint",
@@ -119,6 +201,7 @@ def main():
         r = run_method(name, fn, split=args.split,
                        out_json=os.path.join(RES, f"{name}{args.tag}.json"),
                        limit=args.limit, needs_gt=True,
+                       with_lpips=not args.no_lpips,
                        extra_meta={"oracle": True,
                                    "note": "uses ground-truth shadow-free image; "
                                            "an upper bound, not a baseline"})
