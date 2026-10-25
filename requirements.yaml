@@ -54,7 +54,6 @@ dependencies:
   # CPU build on purpose; see the note at the top of this file.
   - pytorch>=2.2          # LPIPS backbone + the two supervised baselines
   - torchvision>=0.17
-  - cpuonly
 
   # --- fetching -----------------------------------------------------------
   - git                   # download_models.sh clones two repos

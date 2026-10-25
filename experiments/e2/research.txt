@@ -1,0 +1,252 @@
+================================================================================
+e2 — LITERATURE SURVEY: TRAINING-FREE SHADOW REMOVAL
+Target dataset: ISTD+ (Adjusted ISTD), 1330 train / 540 test
+Compiled: 2026-10-25
+================================================================================
+
+PURPOSE
+  Decide what a training-free shadow remover should actually DO, given that the
+  project's own measurements (baseline/RESULTS.md) showed that:
+    - the spread between five different training-free estimators on ISTD+ is
+      only ~0.5 dB PSNR-S, so the estimator is not where the headroom is;
+    - a per-pixel oracle gain field reaches 44 dB, but the guideline's Stage 5
+      parameterisation throws away ~22 dB of it (smoothing -18, clamp -3.4,
+      penumbra feather -14).
+  So: the modelling assumptions and the penumbra, not a cleverer matcher, are
+  where the remaining dB live. This survey was run to find out what the
+  literature already knows about exactly those two things.
+
+VERIFICATION LEGEND
+  [V]  claim verified against the source during this session
+  [K]  standard, widely-reported result stated from background knowledge;
+       NOT re-verified here — check before citing in a paper
+  [?]  found but not confirmed; treat as a lead only
+
+================================================================================
+PART 1 — THE SHADOW FORMATION MODEL  (what e2 is built on)
+================================================================================
+
+[1] Shor, Y. and Lischinski, D.
+    "The Shadow Meets the Mask: Pyramid-Based Shadow Removal."
+    Computer Graphics Forum (Eurographics) 27(2), 577-586, 2008.
+    https://www.cs.huji.ac.il/~danix/ShadowRemoval/shadow_eg08.pdf
+    [V] Lit intensity splits into a DIRECT and an AMBIENT term. A shadow
+        removes the direct component and attenuates part of the ambient one.
+    [V] This makes the relation between shadowed and lit intensity at a pixel
+        AFFINE, with four unknown parameters, estimated from TWO STRIPS of
+        pixels — one inside the shadow, one in the lit area.
+    [V] Handles varying shadow intensity by processing from the shadow INTERIOR
+        OUTWARD TOWARD THE BOUNDARY, and inpaints a thin border strip to blend.
+    [V] The single-attenuation-factor assumption implies ambient light has the
+        same colour in every direction — i.e. it is an approximation that fails
+        under coloured or directional ambient light.
+    >> THE KEY RESULT FOR e2. Every method in baseline/ uses a purely
+       MULTIPLICATIVE gain, which is the affine model with the offset forced to
+       zero. Forcing b=0 is wrong exactly where ambient light matters, which is
+       the whole umbra.
+
+[2] Le, H. and Samaras, D.
+    "Shadow Removal via Shadow Image Decomposition." ICCV 2019.
+    https://arxiv.org/abs/1908.08628
+    and the journal version:
+    "Physics-based Shadow Image Decomposition for Shadow Removal." TPAMI 2021.
+    https://arxiv.org/abs/2012.13018
+    [V] "A linear illumination transformation to model the shadow effects...
+        allows the shadow image to be expressed as a combination of the
+        shadow-free image, THE SHADOW PARAMETERS, and A MATTE LAYER."
+    [V] SP-Net predicts the (per-image, per-channel) shadow parameters; M-Net
+        predicts the shadow matte; I-Net inpaints to refine.
+    [V] ISTD shadow-region RMSE 13.3 (prior SOTA) -> 7.9, and 7.4 when trained
+        with their synthetic augmentation.
+    [V] THIS IS THE ISTD+ DATASET PAPER — the adjusted shadow-free images this
+        whole project uses come from here.
+    >> Confirms the same affine form as [1], and adds the matte as the right
+       way to handle the penumbra. Note that SP-Net LEARNS the parameters that
+       [1] estimates from two strips: a training-free method can use [1]'s
+       estimator inside [2]'s compositing equation.
+
+[3] Finlayson, G., Hordley, S., Lu, C. and Drew, M.
+    "On the Removal of Shadows from Images." TPAMI 28(1), 2006.
+    (and "Entropy Minimization for Shadow Removal," IJCV 2009)
+    [K] Illumination-invariant 1-D/2-D chromaticity image obtained by projecting
+        log-chromaticity along the lighting-change direction; shadow edges are
+        those present in the original gradient but absent in the invariant;
+        zero them and re-integrate by solving a Poisson equation.
+    [K] Fully training-free; needs no mask; but loses the absolute illumination
+        level and is sensitive to camera spectral sharpening.
+    >> Implemented in this project as baseline `gradient_domain`.
+       MEASURED HERE: PSNR-S 21.11, i.e. the WORST of the five training-free
+       baselines on ISTD+ except global_gain is better. Re-integration spreads
+       boundary error over the whole region.
+
+[4] Guo, R., Dai, Q. and Hoiem, D.
+    "Paired Regions for Shadow Detection and Removal." TPAMI 35(12), 2013.
+    (CVPR 2011 earlier version)
+    [K] Region pairing: over-segment, classify regions lit/shadow, pair each
+        shadow region with a lit region of the same material using texture and
+        colour-ratio features, relight by the per-channel ratio of the pair.
+    [V] Reported on ISTD+ in a recent comparison table: PSNR 25.52, SSIM 0.925,
+        MAE 6.09 — the strongest classical number found in this survey.
+    >> Implemented in this project as baseline `guo_paired_regions`.
+       MEASURED HERE: PSNR-S 21.76, whole-image PSNR 28.88, "RMSE" 1.49 (best
+       Lab error of any training-free baseline) but 1589 ms/image — 8x slower
+       than the boundary-ring method that beats it on PSNR.
+
+[5] Yang, Q., Tan, K. and Ahuja, N.
+    "Shadow Removal Using Bilateral Filtering." TIP 21(10), 2012.
+    [V] Reported on ISTD+ in the same comparison table as [4]: PSNR 20.26,
+        SSIM 0.706, MAE 15.90 — i.e. BARELY ABOVE DOING NOTHING.
+    >> Useful calibration: intrinsic-image/bilateral approaches that do not use
+       a mask essentially fail on ISTD+.
+
+[6] Gong, H. and Cosker, D.
+    "Interactive Shadow Removal and Ground Truth for Variable Scene
+    Categories." BMVC 2014.
+    https://bmva-archive.org.uk/bmvc/2014/papers/paper004/index.html
+    and "Interactive Removal and Ground Truth for Difficult Shadow Scenes,"
+    JOSA A 33(9), 2016.
+    [V] Models the shadow image as a per-channel HADAMARD PRODUCT of a shadow
+        SCALE LAYER and the shadow-free image; lit-area scale = 1, shadowed
+        scales in (0,1).
+    [V] Needs only TWO ROUGH STROKES — one on the shadow, one on the lit area —
+        and learns on the fly from them.
+    [V] PENUMBRA: "registering the penumbra to a normalized frame, which allows
+        us efficient estimation of nonuniform shadow illumination changes."
+    >> THE SECOND KEY RESULT FOR e2. The penumbra profile is MEASURED from the
+       image after normalising the boundary coordinate — not assumed to be a
+       fixed ramp. Our own oracle decomposition says a fixed feather costs
+       ~14 dB, so this is the single largest fixable loss.
+
+[7] Xiao, C., Xiao, D., Zhang, L. and Chen, L.
+    "Efficient Shadow Removal Using Subregion Matching Illumination Transfer."
+    Computer Graphics Forum 32(7), 2013.
+    (also "Shadow Remover: Image Shadow Removal Based on Illumination
+    Recovering Optimization," TIP 2015)
+    [?] Found via search; subregion matching + illumination transfer, close in
+        spirit to [4] and to the project's guideline. Not verified in detail.
+
+================================================================================
+PART 2 — LEARNED METHODS  (for calibration only; e2 does not compete here)
+================================================================================
+
+[8] Hu, X. et al. "Unveiling Deep Shadows: A Survey and Benchmark..."
+    https://github.com/xw-hu/Unveiling-Deep-Shadows
+    [V] Unified re-benchmark on ISTD+ at 256x256, whole image, RTX 4090:
+          ST-CGAN      (CVPR18)  RMSE 3.77  PSNR 25.74  SSIM 0.691  112 img/s
+          SP+M-Net     (ICCV19)  RMSE 3.37  PSNR 26.58  SSIM 0.717   34 img/s
+          Mask-ShadowGAN(ICCV19) RMSE 3.70  PSNR 25.50  SSIM 0.720   65 img/s  [unsup]
+          DSC          (TPAMI20) RMSE 3.44  PSNR 26.53  SSIM 0.738   57 img/s
+          G2R-ShadowNet(CVPR21)  RMSE 4.37  PSNR 24.23  SSIM 0.696  3.6 img/s  [weak]
+          DC-ShadowNet (ICCV21)  RMSE 3.89  PSNR 25.18  SSIM 0.693   41 img/s  [unsup]
+          BMNet        (CVPR22)  RMSE 3.34  PSNR 26.62  SSIM 0.731   17 img/s
+          SG-ShadowNet (ECCV22)  RMSE 3.32  PSNR 26.80  SSIM 0.717   17 img/s
+          ShadowDiffusion(CVPR23)RMSE 3.44  PSNR 26.51  SSIM 0.688  9.7 img/s
+          ShadowFormer (AAAI23)  RMSE 3.45  PSNR 26.55  SSIM 0.728   33 img/s
+          HomoFormer   (CVPR24)  RMSE 3.37  PSNR 26.72  SSIM 0.732   16 img/s
+
+    *** PROTOCOL WARNING — READ BEFORE COMPARING ANYTHING TO THIS TABLE ***
+    These numbers are NOT comparable with the ones in baseline/RESULTS.md, and
+    they are NOT comparable with the numbers in the methods' own papers.
+    ShadowFormer is 26.55 whole-image PSNR here and ~32.9 in its own paper.
+    At least two mutually incompatible ISTD+ conventions are in circulation
+    (differing in resize, in region definition, and in whether "RMSE" means MAE
+    in Lab). Our harness sits near the papers' own convention.
+    => e2 IS COMPARED ONLY AGAINST METHODS RUN INSIDE OUR OWN HARNESS.
+       That is what "fair" has to mean here. BMNet and ShadowFormer are
+       integrated (baseline/{bmnet,shadowformer}_wrapper.py) precisely so a
+       supervised anchor exists that was measured identically.
+
+[9] Zhu, Y. et al. "Bijective Mapping Network for Shadow Removal." CVPR 2022.
+    [V] 431,559 parameters in the released ISTD+ (AISTD) checkpoint — by far
+        the smallest strong supervised model, which makes it the most honest
+        latency comparison for a training-free method.
+
+[10] Guo, L. et al. "ShadowFormer: Global Context Helps Shadow Removal."
+     AAAI 2023. [V] 11,372,617 params, ISTD+ checkpoint at epoch 485.
+
+================================================================================
+PART 3 — TRAINING-FREE / ZERO-SHOT DEEP METHODS
+================================================================================
+
+[11] "FreeShadow: Training-Free Shadow Removal via Illumination Transfer and
+     Selective Content Preservation in Diffusion Models."
+     https://arxiv.org/abs/2607.26715
+     [V] Training-free in the sense of using a FROZEN pretrained diffusion
+         model (SD 2.1); no task-specific training, no test-time optimisation.
+     [V] Its own comparison table is the source of the Guo [4] and Yang [5]
+         ISTD+ numbers quoted above.
+     >> "Training-free" here means "no shadow-specific training", not "no
+        learned weights". It inherits an 800M-parameter prior and diffusion
+        sampling latency. A different point on the axis from this project,
+        and worth naming explicitly so the claim in guideline.md section 1.2
+        stays precise.
+
+[12] "Self-ShadowGAN" — zero-shot, learns from the single test image using a
+     histogram-based discriminator.
+     [V] Needs adversarial optimisation AT TEST TIME, so it is zero-shot but
+         very slow, and [11] reports it produces artefacts.
+     >> Relevant as the thing a fast analytic method should beat on latency by
+        three or four orders of magnitude.
+
+[13] "Deshadow-Anything: When Segment Anything Model Meets Zero-shot Shadow
+     Removal." https://arxiv.org/abs/2309.11715  [?] not examined in detail.
+
+[14] "FASR-Net: Unsupervised Shadow Removal Leveraging Inherent Frequency
+     Priors." https://arxiv.org/abs/2504.05779  [?] frequency-domain priors,
+     unsupervised (still trained). Relevant to guideline.md's amplitude idea.
+
+================================================================================
+PART 4 — WHAT THIS SURVEY CHANGES ABOUT THE PLAN
+================================================================================
+
+FINDING 1 — THE MODEL IS WRONG, NOT JUST THE ESTIMATOR.
+  [1] and [2] agree the shadow relation is AFFINE (gain + offset) because
+  ambient light survives inside the umbra. Everything in baseline/ and in e1
+  uses a purely multiplicative gain, i.e. offset forced to zero. That is a
+  structural error, and it explains why five quite different multiplicative
+  estimators all land within 0.5 dB of each other: they are all fitting the
+  wrong family.
+  => e2 ACTION: per-instance, per-channel AFFINE fit  I_free = a*I + b.
+
+FINDING 2 — THE PENUMBRA SHOULD BE MEASURED, NOT ASSUMED.
+  [6] normalises the penumbra coordinate and estimates the illumination change
+  across it. [2] gives the compositing rule (a matte layer). Our oracle says a
+  fixed feather costs ~14 dB.
+  => e2 ACTION: build the matte from the image's OWN radial intensity profile
+     across the mask boundary, per instance. No assumed ramp shape or width.
+
+FINDING 3 — TWO STRIPS ARE ENOUGH, AND CHEAP.
+  [1] estimates its four parameters from two strips; [6] from two strokes.
+  Our `boundary_gain` baseline already showed thin rings beat whole-region
+  statistics (22.04 vs 21.55 dB) at 197 ms.
+  => e2 ACTION: keep the two-strip estimator, upgrade it from 1 parameter
+     (ratio of medians) to 2 per channel (robust affine via matched quantiles),
+     and keep the cost in the tens of milliseconds.
+
+FINDING 4 — DO NOT CHASE PATCH MATCHING ON ISTD+.
+  [4] is the best classical method in the literature and our tuned
+  reimplementation of it is 8x slower than the boundary-ring method and loses
+  to it on PSNR. ISTD+ is mostly single shadows on near-uniform ground, so
+  there is little material diversity for region matching to exploit.
+  => e2 ACTION: no segmentation, no patch matching, no descriptor search.
+     This is also what keeps latency low.
+
+FINDING 5 — "TRAINING-FREE" NEEDS DEFINING.
+  [11] calls itself training-free while using a frozen 800M diffusion prior.
+  => e2 ACTION: state the claim precisely — e2 has ZERO learned weights of any
+     kind, and its only fitted quantities are a handful of scalars selected on
+     the ISTD+ train split, each of which is a hyper-parameter and not a model.
+
+================================================================================
+SOURCES
+================================================================================
+  https://www.cs.huji.ac.il/~danix/ShadowRemoval/shadow_eg08.pdf
+  https://arxiv.org/abs/1908.08628
+  https://arxiv.org/abs/2012.13018
+  https://bmva-archive.org.uk/bmvc/2014/papers/paper004/index.html
+  https://github.com/xw-hu/Unveiling-Deep-Shadows
+  https://arxiv.org/abs/2607.26715
+  https://arxiv.org/abs/2309.11715
+  https://arxiv.org/abs/2504.05779
+  https://arxiv.org/abs/2407.08865   (single-image shadow removal survey)
+  https://arxiv.org/abs/2403.18730   (ambient lighting normalization / IFBlend)

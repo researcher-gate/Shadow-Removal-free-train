@@ -6,6 +6,13 @@ import numpy as np
 
 EPS = 1e-6
 
+# One OpenCV thread, deliberately.  The FFT matching in experiments/e1 already
+# runs scipy.fft with workers=-1, and letting both libraries spawn pools over
+# the same cores oversubscribes them: it made cv2 5.0 throw an intermittent
+# "Unknown C++ exception" out of connectedComponentsWithStats, and it adds
+# variance to the latency numbers this project reports as a metric.
+cv2.setNumThreads(1)
+
 
 # ---------------------------------------------------------------- color space
 def srgb_to_linear(x: np.ndarray) -> np.ndarray:
@@ -67,13 +74,31 @@ def feather(m: np.ndarray, inner: int = 3, width: int = 12) -> np.ndarray:
     return (t * t * (3.0 - 2.0 * t)).astype(np.float32)
 
 
+def _label(mu: np.ndarray):
+    """8-connected labelling, with a scipy fallback.
+
+    cv2.connectedComponentsWithStats has thrown an untyped C++ exception here
+    on this OpenCV build; scipy.ndimage.label is slower but never has, so a
+    long sweep degrades instead of dying at image 400.
+    """
+    try:
+        n, lab = cv2.connectedComponents(mu, connectivity=8)
+        return n, lab
+    except cv2.error:
+        from scipy import ndimage
+        lab, k = ndimage.label(mu, structure=np.ones((3, 3), np.uint8))
+        return k + 1, lab
+
+
 def instances(m: np.ndarray, min_area: int = 200):
     """Connected shadow instances -> list of boolean masks (largest first)."""
-    n, lab, stats, _ = cv2.connectedComponentsWithStats((m > 0).astype(np.uint8), 8)
+    mu = np.ascontiguousarray((m > 0).astype(np.uint8))
+    n, lab = _label(mu)
     out = []
     for i in range(1, n):
-        if stats[i, cv2.CC_STAT_AREA] >= min_area:
-            out.append(lab == i)
+        sel = lab == i
+        if int(sel.sum()) >= min_area:
+            out.append(sel)
     out.sort(key=lambda x: -x.sum())
     if not out and m.any():
         out = [m.astype(bool)]

@@ -470,9 +470,318 @@
     "a_b": 2.0,
     "use_prior": true,
     "topk": 8,
-    "gain_smooth_frac": 0.35,
+    "gain_smooth_frac": 0.2,
     "feather_width": 8,
-    "C": 1.5239389183361096
+    "C": 1.5239389183361096,
+    "gain_max": 12.0
   },
-  "seconds": 1373.1429017999908
+  "seconds": 1373.1429017999908,
+  "refine_pass": {
+    "grid": {
+      "gain_smooth_frac": [
+        0.05,
+        0.1,
+        0.2,
+        0.35
+      ],
+      "feather_width": [
+        4,
+        8,
+        12
+      ],
+      "gain_max": [
+        6.0,
+        12.0
+      ]
+    },
+    "n_images": 50,
+    "seed": 0,
+    "incumbent": {
+      "psnr_S": 19.720195382275826,
+      "psnr_NS": 35.367031089343115,
+      "mae_lab_ALL": 1.9829214358329772
+    },
+    "rows": [
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.35,
+          "feather_width": 8,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.720195382275826,
+        "psnr_NS": 35.367031089343115,
+        "mae_lab_ALL": 1.9829214358329772,
+        "incumbent": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.05,
+          "feather_width": 4,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.45761226214315,
+        "psnr_NS": 34.756277422654655,
+        "mae_lab_ALL": 2.003132019042969,
+        "admissible": false
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.05,
+          "feather_width": 4,
+          "gain_max": 12.0
+        },
+        "psnr_S": 20.702198910968427,
+        "psnr_NS": 34.79100297720069,
+        "mae_lab_ALL": 1.668713651895523,
+        "admissible": false
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.05,
+          "feather_width": 8,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.710805870198588,
+        "psnr_NS": 35.36385402856045,
+        "mae_lab_ALL": 1.9838068568706513,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.05,
+          "feather_width": 8,
+          "gain_max": 12.0
+        },
+        "psnr_S": 20.99199347097617,
+        "psnr_NS": 35.41850557256774,
+        "mae_lab_ALL": 1.6530340588092804,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.05,
+          "feather_width": 12,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.701231002902492,
+        "psnr_NS": 35.590874292416316,
+        "mae_lab_ALL": 1.9848257327079772,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.05,
+          "feather_width": 12,
+          "gain_max": 12.0
+        },
+        "psnr_S": 20.93268181145608,
+        "psnr_NS": 35.281693679862684,
+        "mae_lab_ALL": 1.6675331830978393,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.1,
+          "feather_width": 4,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.463844033621573,
+        "psnr_NS": 34.756443847181096,
+        "mae_lab_ALL": 2.0025659561157227,
+        "admissible": false
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.1,
+          "feather_width": 4,
+          "gain_max": 12.0
+        },
+        "psnr_S": 20.710798146957917,
+        "psnr_NS": 34.79124554735782,
+        "mae_lab_ALL": 1.6680702042579652,
+        "admissible": false
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.1,
+          "feather_width": 8,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.717722393315672,
+        "psnr_NS": 35.364699734376764,
+        "mae_lab_ALL": 1.9832340502738952,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.1,
+          "feather_width": 8,
+          "gain_max": 12.0
+        },
+        "psnr_S": 21.001223519503018,
+        "psnr_NS": 35.419360156301515,
+        "mae_lab_ALL": 1.6523961305618287,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.1,
+          "feather_width": 12,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.70820216649677,
+        "psnr_NS": 35.59153542644938,
+        "mae_lab_ALL": 1.9842598557472229,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.1,
+          "feather_width": 12,
+          "gain_max": 12.0
+        },
+        "psnr_S": 20.941823136706955,
+        "psnr_NS": 35.281328298105066,
+        "mae_lab_ALL": 1.6668995380401612,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.2,
+          "feather_width": 4,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.46909754929941,
+        "psnr_NS": 34.756788174315204,
+        "mae_lab_ALL": 2.0020661664009096,
+        "admissible": false
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.2,
+          "feather_width": 4,
+          "gain_max": 12.0
+        },
+        "psnr_S": 20.717872895192365,
+        "psnr_NS": 34.791740471287724,
+        "mae_lab_ALL": 1.6676989316940307,
+        "admissible": false
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.2,
+          "feather_width": 8,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.724488052928162,
+        "psnr_NS": 35.3660924256319,
+        "mae_lab_ALL": 1.9826735830307007,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.2,
+          "feather_width": 8,
+          "gain_max": 12.0
+        },
+        "psnr_S": 21.010145460768303,
+        "psnr_NS": 35.41983182578612,
+        "mae_lab_ALL": 1.6520299756526946,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.2,
+          "feather_width": 12,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.71522420657105,
+        "psnr_NS": 35.59203366488172,
+        "mae_lab_ALL": 1.9837513160705567,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.2,
+          "feather_width": 12,
+          "gain_max": 12.0
+        },
+        "psnr_S": 20.950701976273265,
+        "psnr_NS": 35.278353763421435,
+        "mae_lab_ALL": 1.6666087424755096,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.35,
+          "feather_width": 4,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.46321621379195,
+        "psnr_NS": 34.757010475612454,
+        "mae_lab_ALL": 2.0024006402492525,
+        "admissible": false
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.35,
+          "feather_width": 4,
+          "gain_max": 12.0
+        },
+        "psnr_S": 20.712312129281823,
+        "psnr_NS": 34.792161102487036,
+        "mae_lab_ALL": 1.6681957471370696,
+        "admissible": false
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.35,
+          "feather_width": 8,
+          "gain_max": 12.0
+        },
+        "psnr_S": 21.006132647860824,
+        "psnr_NS": 35.41966321452217,
+        "mae_lab_ALL": 1.6524711728096009,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.35,
+          "feather_width": 12,
+          "gain_max": 6.0
+        },
+        "psnr_S": 19.71221953234336,
+        "psnr_NS": 35.59196281501652,
+        "mae_lab_ALL": 1.98399582862854,
+        "admissible": true
+      },
+      {
+        "cfg": {
+          "gain_smooth_frac": 0.35,
+          "feather_width": 12,
+          "gain_max": 12.0
+        },
+        "psnr_S": 20.948258910028663,
+        "psnr_NS": 35.275387831804984,
+        "mae_lab_ALL": 1.66702250957489,
+        "admissible": true
+      }
+    ],
+    "best": {
+      "cfg": {
+        "gain_smooth_frac": 0.2,
+        "feather_width": 8,
+        "gain_max": 12.0
+      },
+      "psnr_S": 21.010145460768303,
+      "psnr_NS": 35.41983182578612,
+      "mae_lab_ALL": 1.6520299756526946,
+      "admissible": true
+    },
+    "delta_psnr_S": 1.2899500784924776,
+    "winner_on_grid_edge": [
+      "gain_max"
+    ],
+    "seconds": 1250.4714422000106
+  }
 }

@@ -99,6 +99,8 @@ def main():
             run_method(f"e1_{name}", IAT(c),
                        out_json=os.path.join(RES, f"ablation_8_1_{name}{args.tag}.json"),
                        limit=args.limit, with_lpips=False, eval_full=False,
+                       save_dir=(os.path.join(OUTIMG, name)
+                                 if name == "arm1_fixed_s_fixed_b" else None),
                        extra_meta={"config": asdict(c), "arm": name,
                                    "note": "ablation arms are scored at 256 only "
                                            "(PSNR/SSIM/MAE-Lab); LPIPS and full-res "
